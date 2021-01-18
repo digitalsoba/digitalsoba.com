@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: blog
+  name: blog
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: blog
+    spec:
+      containers:
+      - image: digitalsoba/digitalsoba.com:latest
+        imagePullPolicy: Always
+        name: digitalsoba
+        ports:
+          - containerPort: 80
+
