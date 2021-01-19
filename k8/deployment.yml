@@ -4,7 +4,6 @@ metadata:
   labels:
     app: blog
   name: blog
-  namespace: default
 spec:
   replicas: 1
   selector:
@@ -21,9 +20,12 @@ spec:
         app: blog
     spec:
       containers:
-      - image: digitalsoba/digitalsoba.com:latest
-        imagePullPolicy: Always
-        name: digitalsoba
-        ports:
-          - containerPort: 80
-
+        - image: digitalsoba/digitalsoba.com:latest
+          imagePullPolicy: Always
+          name: digitalsoba
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "1"
