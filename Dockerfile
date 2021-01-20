@@ -12,7 +12,7 @@ COPY . /app
 
 WORKDIR /app
 
-RUN hugo --minify --enableGitInfo 
+RUN hugo --minify
 
 FROM nginx:1.19-alpine
 
