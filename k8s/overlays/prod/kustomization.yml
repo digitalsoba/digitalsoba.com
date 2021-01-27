@@ -5,3 +5,4 @@ patchesStrategicMerge:
 - deployment.yml
 - ingress.yml
 - service.yml
+- certificate.yml
