@@ -6,9 +6,10 @@ metadata:
   name: blog
 spec:
   type: LoadBalancer
+  selector:
+    app: blog
   ports:
   - port: 80
     targetPort: 80
     protocol: TCP
-  selector:
-    app: blog
+
