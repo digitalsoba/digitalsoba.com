@@ -1,24 +1,19 @@
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: blog-ingress
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/issuer: letsencrypt-prod
 spec:
   tls:
-  - hosts: 
-    - digitalsoba.com
-    secretName: letsencrypt-prod
+  - hosts:
+    - digitalsoba.dev
+    secretName: digitalsoba-dev-tls
   rules:
-  - host: digitalsoba.com
+  - host: digitalsoba.dev
     http:
       paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: blog
-            port:
-              number: 80
+      - backend:
+          serviceName: blog
+          servicePort: 80
