@@ -5,7 +5,6 @@ metadata:
     app: blog
   name: blog
 spec:
-  type: LoadBalancer
   selector:
     app: blog
   ports:

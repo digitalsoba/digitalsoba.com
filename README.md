@@ -1,4 +1,4 @@
-# digitalsoba.com
+# digitalsoba.dev
 A blog built on hugo, deployed in Kubernetes
 
 ## Running locally
