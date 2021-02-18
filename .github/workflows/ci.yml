@@ -20,7 +20,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v2
         with:
-          tags: digitalsoba/digitalsoba.com:$GITHUB_SHA
+          tags: digitalsoba/digitalsoba.com:${GITHUB_SHA::9}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
