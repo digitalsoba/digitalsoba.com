@@ -33,4 +33,16 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.2.4/scw-2.2.4-linux-x86_64"
+          sudo chmod +x /usr/local/bin/scw
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+          kubectl version --client
+          kustomize version
+          scw version
