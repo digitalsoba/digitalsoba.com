@@ -7,9 +7,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Get sha
-        id: get-sha
-        run: echo "::set-output name=sha_short::$(git rev-parse --short=9 HEAD)"  
+      - name: Docker Meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with: 
+          image: ghcr.io/digitalsoba/digitalsoba.com
+          tag-sha: true 
       - name: Checkout repository and submodules
         uses: actions/checkout@v2
         with:
@@ -24,7 +27,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          tags: digitalsoba/digitalsoba.com:${{ steps.get-sha.outputs.sha_short }}
+          context: .
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
