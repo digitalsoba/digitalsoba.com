@@ -4,6 +4,7 @@ kind: Kustomization
 
 commonLabels:
   app: blog
+  environment: dev
 
 resources:
 - deployment.yml
