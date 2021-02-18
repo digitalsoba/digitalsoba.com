@@ -11,7 +11,8 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with: 
-          image: ghcr.io/digitalsoba/digitalsoba.com
+          images: |
+            ghcr.io/digitalsoba/digitalsoba.com
           tag-sha: true 
       - name: Checkout repository and submodules
         uses: actions/checkout@v2
