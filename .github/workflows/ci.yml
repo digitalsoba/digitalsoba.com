@@ -6,16 +6,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env: 
-      SHA9: ${GITHUB_SHA::8]9}
     steps:
       - name: Docker Meta
-        id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v1
-        with: 
-          images: |
-            ghcr.io/digitalsoba/digitalsoba.com
-          tag-sha: true 
+        id: get_sha
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - name: Checkout repository and submodules
         uses: actions/checkout@v2
         with:
@@ -32,13 +26,11 @@ jobs:
         with:
           context: .
           push: true
-          tags: $SHA9
+          tags: ${{ steps.get_sha.outputs.sha_short }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
   deploy:
     runs-on: ubuntu-latest
-    env:
-      SHA9: ${GITHUB_SHA::9}
     needs: [build]
     steps:
       - name: Checkout repository and submodules
