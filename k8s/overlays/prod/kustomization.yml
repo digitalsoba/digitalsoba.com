@@ -7,13 +7,18 @@ commonLabels:
 
 namespace: production
 
-bases:
-- ../../base
+images:
+- name: ghcr.io/digitalsoba/digitalsoba.com
+  newTag: latest
+
 
 replicas:
-- name: blog
-  count: 2
+- count: 2
+  name: blog
 
 patchesStrategicMerge:
 - ingress.yml
 - service.yml
+
+resources:
+- ../../base

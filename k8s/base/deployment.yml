@@ -20,7 +20,7 @@ spec:
         app: blog
     spec:
       containers:
-        - image: digitalsoba/digitalsoba.com:latest
+        - image: ghcr.io/digitalsoba/digitalsoba.com:latest
           imagePullPolicy: Always
           name: digitalsoba
           ports:
