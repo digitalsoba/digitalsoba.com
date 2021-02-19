@@ -15,7 +15,7 @@ paginate = 5
 
 [params]
   author = "digitalsoba"
-  description = "⚡ DevOps Engineer - Corgi Dad"
+  description = "🚀DevOps Engineer - Corgi Dad"
   menu_item_separator = " - "
   [[params.social]]
     name = "github"
