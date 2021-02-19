@@ -5,7 +5,7 @@ on:
     branches: 
       - main
 jobs:
-  build:
+  build-and-deploy-to-prod:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository and submodules
@@ -46,7 +46,7 @@ jobs:
       - name: Install kubeconfig 
         run: |
           scw k8s kubeconfig install ${{ secrets.SCW_CLUSTER_ID }}
-      - name: Deploy new image to staging namespace
+      - name: Deploy new image to production namespace
         run: |
           cd k8s/overlays/prod
           kustomize edit set image ghcr.io/digitalsoba/digitalsoba.com:${{ steps.get_sha.outputs.sha_short }}
