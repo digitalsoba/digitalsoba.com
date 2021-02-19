@@ -66,7 +66,7 @@ jobs:
           scw k8s kubeconfig install ${{ secrets.SCW_CLUSTER_ID }}
       - name: Deploy new image
         run: |
-          cd k8s/overlays/prod
+          cd k8s/overlays/staging
           kustomize edit set image ${{ steps.docker_meta.outputs.tags }}
           kustomize build
       - name: Cleanup
