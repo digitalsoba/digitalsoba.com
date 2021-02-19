@@ -7,13 +7,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Docker Meta
-        id: get_sha
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - name: Checkout repository and submodules
         uses: actions/checkout@v2
         with:
           submodules: recursive
+      - name: Docker Meta
+        id: get_sha
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1 
         with:
