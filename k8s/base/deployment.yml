@@ -20,12 +20,17 @@ spec:
         app: blog
     spec:
       containers:
-        - image: ghcr.io/digitalsoba/digitalsoba.com:latest
+        - name: blog
+          image: ghcr.io/digitalsoba/digitalsoba.com:latest
           imagePullPolicy: Always
-          name: digitalsoba
           ports:
             - containerPort: 80
           resources:
+            requests:
+              memory: "128Mi"
+              cpu: "0.10"
             limits:
-              memory: "256M"
-              cpu: "100m"
+              memory: "256Mi"
+              cpu: "0.25"
+      imagePullSecrets:
+      - name: dockerconfigjson-github-com
