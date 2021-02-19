@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env: 
+      SHA9: ${GITHUB_SHA::8]9}
     steps:
       - name: Docker Meta
         id: docker_meta
@@ -30,11 +32,13 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ github.sha }}
+          tags: $SHA9
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
   deploy:
     runs-on: ubuntu-latest
+    env:
+      SHA9: ${GITHUB_SHA::9}
     needs: [build]
     steps:
       - name: Checkout repository and submodules
@@ -67,7 +71,7 @@ jobs:
       - name: Deploy new image
         run: |
           cd k8s/overlays/staging
-          kustomize edit set image ${{ github.sha }}
+          kustomize edit set image $SHA9
           kustomize build
       - name: Cleanup
         run: | 
