@@ -53,3 +53,10 @@ jobs:
       - name: Install kubeconfig 
         run: |
           scw k8s kubeconfig install ${{ secrets.SCW_CLUSTER_ID }}
+      - name: Deploy new image
+        run: |
+          kubectl get nodes
+      - name: Cleanup
+        run: | 
+          rm -rf /home/runner/.kube/config
+          rm -rf /home/runner/.config/scw
