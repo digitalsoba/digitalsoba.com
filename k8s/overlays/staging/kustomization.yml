@@ -9,7 +9,7 @@ namespace: staging
 
 images:
 - name: ghcr.io/digitalsoba/digitalsoba.com
-  newTag: latest
+  newTag: sha-c07e9ce
 
 patchesStrategicMerge:
 - ingress.yml

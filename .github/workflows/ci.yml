@@ -30,7 +30,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.docker_meta.outputs.tags }}
+          tags: ${{ github.sha }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
   deploy:
@@ -67,7 +67,7 @@ jobs:
       - name: Deploy new image
         run: |
           cd k8s/overlays/staging
-          kustomize edit set image ${{ steps.docker_meta.outputs.tags }}
+          kustomize edit set image ${{ github.sha }}
           kustomize build
       - name: Cleanup
         run: | 
