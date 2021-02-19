@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: recursive
-      - name: Docker Meta
+      - name: Get commit SHA
         id: get_sha
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - name: Login to GitHub Container Registry
@@ -26,7 +26,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.get_sha.outputs.sha_short }}
+          tags: ghcr.io/digitalsoba/digitalsoba.com:${{ steps.get_sha.outputs.sha_short }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
   deploy:
@@ -37,13 +37,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: recursive
-      - name: Docker Meta
-        id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v1
-        with: 
-          images: |
-            ghcr.io/digitalsoba/digitalsoba.com
-          tag-sha: true 
+      - name: Get commit SHA
+        id: get_sha
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - name: Install dependencies
         run: |
           sudo curl -o /usr/local/bin/scw -L "https://github.com/scaleway/scaleway-cli/releases/download/v2.2.4/scw-2.2.4-linux-x86_64"
@@ -63,7 +59,7 @@ jobs:
       - name: Deploy new image
         run: |
           cd k8s/overlays/staging
-          kustomize edit set image $SHA9
+          kustomize edit set image ghcr.io/digitalsoba/digitalsoba.com:${{ steps.get_sha.outputs.sha_short }}
           kustomize build
       - name: Cleanup
         run: | 
