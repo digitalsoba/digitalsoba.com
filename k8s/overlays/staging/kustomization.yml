@@ -3,17 +3,13 @@ kind: Kustomization
 
 commonLabels:
   app: blog
-  environment: production
+  environment: staging
 
-namespace: production
+namespace: staging
 
 images:
 - name: ghcr.io/digitalsoba/digitalsoba.com
-  newTag: latest
-
-replicas:
-- count: 2
-  name: blog
+  newTag: sha-c07e9ce
 
 patchesStrategicMerge:
 - ingress.yml

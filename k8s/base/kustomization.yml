@@ -10,3 +10,7 @@ resources:
 - deployment.yml
 - ingress.yml
 - service.yml
+
+images:
+- name: ghcr.io/digitalsoba/digitalsoba.com
+  newTag: latest
